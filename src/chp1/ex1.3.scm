@@ -1,15 +1,14 @@
 ;; Exercise 1.3
 
 (define (sum-of-squares-of-two-largest x y z)
-  (cond ((>= x y) (+ (* x x)
-                     (cond ((>= y z) (* y y))
-                           ((> z y) (* z z)))
-                     ))
-        ((> y x) (+ (* y y)
-                    (cond ((>= x z) (* x x))
-                          ((> z x) (* z z)))
-                    ))
-        ))
+  (if (>= x y)
+      (+ (* x x)
+         (if (>= y z)
+             (* y y) (* z z)))
+      (+ (* y y)
+         (if (>= x z)
+             (* x x) (* z z))
+         )))
 
 (sum-of-squares-of-two-largest 1 2 3)
 
