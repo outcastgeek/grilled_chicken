@@ -14,3 +14,13 @@
 (define (add1 n)
   (+ n 1))
 
+(define (fact x)
+
+  (define (iter n accum)
+    (if (zero? n)
+        accum
+        (iter (- n 1) (* n accum))))
+  (iter x 1))
+
+(fact 5)
+
