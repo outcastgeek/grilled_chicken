@@ -1,5 +1,6 @@
 # Cooking Grilled Chicken
 
+OUTPUT := foo-exe
 BASEDIR := $(shell pwd)
 SRC_DIR := $(BASEDIR)/src
 UNAME_S := $(shell uname -s)
@@ -9,13 +10,21 @@ VENDOR_DIR:= $(BASEDIR)/vendor
 DEPS := anaphora clojurian continuations format nrepl mini-kanren
 
 run: all
-	bin/foo-exe
+	bin/$(OUTPUT)
 
 all: clean grilling
-	mv foo-exe bin
+	@echo "All Done Grilling!!!!"
 
 grilling:
-	csc -static -deploy src/*.scm -optimize-level 3 -output-file foo-exe
+	csc -static -deploy src/*.scm -optimize-level 3 -output-file $(OUTPUT)
+	#csc -R $(DEPS) -static -deploy src/*.scm -optimize-level 3 -output-file $(OUTPUT)
+	#csc -deploy src/*.scm -optimize-level 3 -output-file $(OUTPUT)
+	#chicken-install -deploy -p $(BASEDIR)/$(OUTPUT) $(DEPS)
+	mv $(OUTPUT) bin
+
+emacs:
+	chicken-install -s apropos chicken-doc
+	@cd `csi -p '(chicken-home)'`; curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
 
 deps:
 	@mkdir -p $(VENDOR_DIR)

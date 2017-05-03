@@ -3,6 +3,7 @@
 ; The declaration marks this source file as dependant on the symbols provided
 ; by the bar unit:
 (declare (uses bar))
+(declare (uses embedded))
 
 ;;(write (fac 10))
 ;;(newline)
